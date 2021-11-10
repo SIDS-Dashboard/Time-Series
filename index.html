@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Form</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
+    </style>
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  </head>
+
+  <body>
+    <div class="deactivateSearch display-none" style="z-index:100;width:100%;height:100%;position:absolute;top:0;" onClick="deactivateSearch()"></div>
+    <div class="row">
+    <div class="col-lg-4">
+    <div class="menu-box col-flex align-items-center height-fixed">
+
+      <div class="row-flex align-items-center search-dataset" style="width:96%; margin:5px 0 0 0; cursor:pointer;" onClick="activateSearch()">
+        <div style='text-align: center; width:89%; font-weight:400; font-size:16px;'>Select a Dataset</div>
+        <div class='search-icon'></div>
+      </div>
+
+      <div class="row-flex align-items-center search-dataset-box display-none" style="width:96%; margin:5px 0 0 0; cursor:pointer;" onClick="activateSearch()">
+        <input type="text" name="dataset" value="" id='dataset-input' oninput="handleDatasetSearch(this)">
+        <div class='box-search-icon'></div>
+      </div>
+
+      <div class="search-values-box col-flex align-items-center display-none">
+        <div class="search-values col-flex">
+
+        </div>
+      </div>
+
+      <div class="col-flex full-width align-items-center menu-content">
+        <!-- Dataset Select Menu -->
+        <div class="datasets col-flex">
+
+          <div class="selected-dataset row-flex space-evenly align-items-center full-width display-none" onClick="toggleOptionMenu('dataset')">
+            <div class='row-flex align-items-center'>
+              <div class="logo"></div>
+              <div style="margin-left: 15px;">Key Indicators</div>
+            </div>
+          </div>
+
+          <div class="dataset-options col-flex align-items-center full-width dropdown">
+            <div class="col-flex align-items-center dataset-internal-box" style="background-color:#F0F0F0">
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('keyIndicators')">
+                <div class='dataset-image keyIndicatorsIcon'></div>
+              </div>
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('wdi')">
+                <div class='dataset-image wdiIcon'></div>
+              </div>
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('who')">
+                <div class='dataset-image whoIcon'></div>
+              </div>
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('gggr')">
+                <div class='dataset-image gggrIcon'></div>
+              </div>
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('irena')">
+                <div class='dataset-image irenaIcon'></div>
+              </div>
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('undesa')">
+                <div class='dataset-image undesaIcon'></div>
+              </div>
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('fao')">
+                <div class='dataset-image faoIcon'></div>
+              </div>
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('unctad')">
+                <div class='dataset-image unctadIcon'></div>
+              </div>
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('epi')">
+                <div class='dataset-image epiIcon'></div>
+              </div>
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('ohi')">
+                <div class='dataset-image ohiIcon'></div>
+              </div>
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('hdr')">
+                <div class='dataset-image hdrIcon'></div>
+              </div>
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('ndgain')">
+                <div class='dataset-image ndgainIcon'></div>
+              </div>
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('sdg')">
+                <div class='dataset-image sdgIcon'></div>
+              </div>
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('ihme')">
+                <div class='dataset-image ihmeIcon'></div>
+              </div>
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('ghi')">
+                <div class='dataset-image ghiIcon'></div>
+              </div>
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('blasiak')">
+                <div class='dataset-image blasiakIcon'></div>
+              </div>
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('itu')">
+                <div class='dataset-image ituIcon'></div>
+              </div>
+              <div class="dataset-option row-flex space-evenly align-items-center" onClick="selectDataset('unicef')">
+                <div class='dataset-image unicefIcon'></div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="down-arrow-grey dataset-down-arrow display-none" onClick="toggleOptionMenu('dataset')"></div>
+        </div>
+
+        <!-- Categories select Menu -->
+        <div class="categories col-flex">
+          <div class="row-flex align-items-center selected-category"  onClick="toggleOptionMenu('category')">
+            <div style="margin-left:12%;">All Categories</div>
+          </div>
+
+          <div class="category-options col-flex align-items-center dropdown display-none">
+
+          </div>
+
+          <div class="down-arrow-grey" onClick="toggleOptionMenu('category')"></div>
+        </div>
+
+        <!-- Sub-Category select Menu -->
+        <div class="sub-categories col-flex display-none">
+          <div class="row-flex align-items-center selected-subcategory" onClick="toggleOptionMenu('subcategory')">
+            <div style="margin-left:12%;">Select a sub-category</div>
+          </div>
+
+          <div class="subcategory-options col-flex align-items-center dropdown display-none">
+
+          </div>
+
+          <div class="down-arrow-grey" onClick="toggleOptionMenu('subcategory')"></div>
+        </div>
+
+        <!-- Values Box -->
+        <div class="values-box col-flex align-items-center">
+
+          <div class="row-flex align-items-center search-value-box" style="width:90%; margin:8px 0 2px 0; cursor:pointer;">
+            <input type="text" name="value" value="" id='value-input' oninput="searchIndicator(this)">
+            <div class='value-search-icon'></div>
+          </div>
+
+          <div class="values col-flex">
+
+          </div>
+        </div>
+
+        <!-- Description Box -->
+        <div class="description-box col-flex display-none">
+          <div class="description">
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+    <div id="timeSeriesContainer" class="col-lg-8"></div> 
+  </div>
+
+    <script src="indicatorCategories.js"></script>
+    <script src="indicatorMeta.js"></script>
+    <script src="script.js"></script>
+    <script src="dataTest.js"></script>
+    <script src="timeseries.js"></script>
+
+  </body>
+
+</html>
